@@ -15,6 +15,17 @@
 
 using namespace ftxui;
 
+
+Decorator Checker(int min, int max , int value){
+    if (value >= min  && value <= max){
+        return color(Color::Green) ;
+    }else{
+        return color(Color::Red) ;
+    }
+    return color(Color::White);
+}
+
+
 int main(int argc, const char *argv[])
 {
     std::vector<std::string> tab_values{
@@ -34,10 +45,11 @@ int main(int argc, const char *argv[])
     int tab_1_selected = 0;
 
     std::string f_factor;
-    Component input_f_factor = Input(&f_factor, "8");
+    Component input_f_factor = Input(&f_factor, " ");
+    
 
     std::string threshold;
-    Component input_threshold = Input(&threshold, "8");
+    Component input_threshold = Input(&threshold, " ");
 
     // std::string btn1 = "Write to GIP";
     // auto button_stuff = printStuff();
@@ -71,13 +83,10 @@ int main(int argc, const char *argv[])
 
     auto button = Button("[Send To Gip]", [&]
                          { value++; });
-    auto colorred = bgcolor(Color::Red);
     
-    if (std::stoi(f_factor))
-    {
-        /* code */
-    }
     
+
+  
     
     auto stat = Renderer(button, [&]
                          {
@@ -87,9 +96,9 @@ int main(int argc, const char *argv[])
                                               vbox({
                                                   hbox(text(" SELECTED sampling rate: " + std::to_string(tab_1_selected))),
 
-                                                  hbox( text(" f factor : ") | colorred  , input_f_factor->Render()),
+                                                  hbox( text(" f factor : ") | Checker(8,300, std::atoi(f_factor.c_str()))  , input_f_factor->Render()) | Checker(8,300, std::atoi(f_factor.c_str())),  
 
-                                                  hbox(text(" threshold : "), input_threshold->Render()),
+                                                  hbox(text(" threshold : ")| Checker(8,300, std::atoi(threshold.c_str())), input_threshold->Render())| Checker(8,300, std::atoi(threshold.c_str())),
                                               }),
 
                                           }),
