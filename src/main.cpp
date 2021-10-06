@@ -15,8 +15,6 @@
 
 using namespace ftxui;
 
-
-
 int main(int argc, const char *argv[])
 {
     std::vector<std::string> tab_values{
@@ -45,8 +43,6 @@ int main(int argc, const char *argv[])
     // auto button_stuff = printStuff();
     // Component button1 = Button(&btn1,&button_stuff );
 
-
-
     auto tab_container = Container::Tab(
         {Radiobox(&tab_1_entries, &tab_1_selected),
          input_f_factor,
@@ -67,34 +63,40 @@ int main(int argc, const char *argv[])
                                             vbox({
                                                 tab_container->Render(),
                                             }) | flex,
-                                           
 
                                         }) |
                                         border;
                              });
     auto value = 0;
+
+    auto button = Button("[Send To Gip]", [&]
+                         { value++; });
+    auto colorred = bgcolor(Color::Red);
     
-
-    auto button = Button("[Send To Gip]", [&]{ value++; });
-
+    if (std::stoi(f_factor))
+    {
+        /* code */
+    }
+    
+    
     auto stat = Renderer(button, [&]
                          {
                              return vbox({hbox({
-                                        button->Render(),
-                                        separator(),
-                                        vbox({
-                                            hbox( text(" SELECTED sampling rate: " +  std::to_string(tab_1_selected))),
-                                            hbox( text(" f factor : "),input_f_factor->Render()),
-                                            hbox( text(" threshold : "),input_threshold->Render()),
-                                          }),
-                                        
+                                              button->Render(),
+                                              separator(),
+                                              vbox({
+                                                  hbox(text(" SELECTED sampling rate: " + std::to_string(tab_1_selected))),
 
-                                        
-                                    }),
-                                    separator(),
-                                    hbox({
-                                         gauge(value * 0.01f),
-                                    }) })|
+                                                  hbox( text(" f factor : ") | colorred  , input_f_factor->Render()),
+
+                                                  hbox(text(" threshold : "), input_threshold->Render()),
+                                              }),
+
+                                          }),
+                                          separator(),
+                                          hbox({
+                                              gauge(value * 0.01f),
+                                          })}) |
                                     border;
                          });
 
