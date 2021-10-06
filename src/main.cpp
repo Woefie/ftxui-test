@@ -67,7 +67,7 @@ int main(int argc, const char *argv[])
                                             vbox({
                                                 tab_container->Render(),
                                             }) | flex,
-                                            separator(),
+                                           
 
                                         }) |
                                         border;
