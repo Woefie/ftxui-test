@@ -17,7 +17,7 @@ using namespace ftxui;
 
 
 Decorator Checker(int min, int max , int value){
-    if (value >= min  && value <= max){
+    if ((min <= value) && (value <= max)){
         return color(Color::Green) ;
     }else{
         return color(Color::Red) ;
